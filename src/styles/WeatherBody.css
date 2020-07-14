@@ -5,7 +5,6 @@
     text-align: center;
     align-items: center;
     justify-content: center;
-
 }
 
 .WeatherBody {
@@ -34,4 +33,28 @@
 .moreInfo {
     cursor: pointer;
     font-size: 30px;
+}
+
+@media (max-width:1024px) {
+    .weatherCont {
+        flex-wrap: wrap;
+        margin-top: 30%;
+        height: 60vh;
+    }
+}
+
+@media (max-width:761px) {
+    .weatherCont {
+        height: 90vh;
+    }
+}
+
+@media (max-width:510px) {
+    .WeatherBody {
+        margin: 10px 0;
+    }
+
+    .weatherCont {
+        margin-top: 50%;
+    }
 }

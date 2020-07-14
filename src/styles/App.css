@@ -13,26 +13,6 @@ body {
   background: linear-gradient(90deg, rgba(82, 74, 208, 1) 0%, rgba(87, 87, 210, 1) 40%, rgba(0, 49, 255, 1) 100%);
 }
 
-.search-bar {
-  position: absolute;
-  top: 20%;
-  left: 50%;
-  width: 500px;
-  transform: translate(-50%, -20%);
-  display: block;
-  padding: 15px;
-  text-align: center;
-  border: none;
-  appearance: none;
-  outline: none;
-  background: none;
-  background-color: rgba(255, 255, 255, .7);
-  border-radius: 16px;
-  color: #313131;
-  font-size: 20px;
-
-}
-
 .cityName {
   position: absolute;
   top: 30%;
@@ -49,4 +29,26 @@ body {
   text-align: center;
   align-items: center;
   justify-content: center;
+}
+
+@media (max-width:1024px) {
+  .cityName {
+    top: 25%;
+  }
+}
+
+@media (max-width:800px) {
+  .cityName {
+    top: 20%;
+    font-size: 30px;
+    margin: 15px 0;
+  }
+}
+
+@media (max-width:640px) {
+  .cityName {
+    top: 13%;
+    font-size: 30px;
+    margin: 15px 0;
+  }
 }

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+
+import WeatherBody from './WeatherBody'
+import InputToSearch from './InputToSearch'
+
 import '../styles/App.css';
-import WeatherBody from './WeatherBody.js'
+
 
 class App extends Component {
   state = {
@@ -55,35 +59,30 @@ class App extends Component {
   };
 
   render() {
+    const { value, city } = this.state;
     const minTEMP = this.state.temp.map(el => parseInt(el.low_temp));
     const maxTEMP = this.state.temp.map(el => parseInt(el.max_temp));
     const icon = this.state.temp.map(el => el.weather.code);
     const description = this.state.temp.map(el => el.weather.description);
 
     let content = (
-      <div className="weatherCont">
-        <WeatherBody day={this.dateBul(0)} icon={icon[0]} minTemp={minTEMP[0]} maxTemp={maxTEMP[0]} description={description} />
-        <WeatherBody day={this.dateBul(1)} icon={icon[1]} minTemp={minTEMP[1]} maxTemp={maxTEMP[1]} description={description} />
-        <WeatherBody day={this.dateBul(2)} icon={icon[2]} minTemp={minTEMP[2]} maxTemp={maxTEMP[2]} description={description} />
-        <WeatherBody day={this.dateBul(3)} icon={icon[3]} minTemp={minTEMP[3]} maxTemp={maxTEMP[3]} description={description} />
-        <WeatherBody day={this.dateBul(4)} icon={icon[4]} minTemp={minTEMP[4]} maxTemp={maxTEMP[4]} description={description} />
-      </div>
+      <>
+        <h5 className='cityName'>Weather for {city}</h5>
+        <div className="weatherCont">
+          <WeatherBody day={this.dateBul(0)} icon={icon[0]} minTemp={minTEMP[0]} maxTemp={maxTEMP[0]} description={description} />
+          <WeatherBody day={this.dateBul(1)} icon={icon[1]} minTemp={minTEMP[1]} maxTemp={maxTEMP[1]} description={description} />
+          <WeatherBody day={this.dateBul(2)} icon={icon[2]} minTemp={minTEMP[2]} maxTemp={maxTEMP[2]} description={description} />
+          <WeatherBody day={this.dateBul(3)} icon={icon[3]} minTemp={minTEMP[3]} maxTemp={maxTEMP[3]} description={description} />
+          <WeatherBody day={this.dateBul(4)} icon={icon[4]} minTemp={minTEMP[4]} maxTemp={maxTEMP[4]} description={description} />
+        </div>
+      </>
     )
 
     return (
-      <>
-        <div className="app">
-          <input type="text"
-            value={this.state.value}
-            onChange={this.handleChange}
-            onKeyPress={this.searchWeather}
-            placeholder="Search City..."
-            className='search-bar'
-          />
-          <h5 className='cityName'>{this.state.city}</h5>
-          {this.state.city.length === 0 ? null : content}
-        </div>
-      </>
+      <div className="app">
+        <InputToSearch value={value} change={this.handleChange} keyPress={this.searchWeather} />
+        {city.length && content}
+      </div>
     )
   };
 }
