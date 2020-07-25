@@ -9,12 +9,9 @@ import '../styles/App.css';
 class App extends Component {
   state = {
     value: '',
-    tempMax: '',
-    country: '',
-    tempMin: '',
     city: '',
     temp: [],
-
+    data: [],
   }
 
   dateBul = (number) => {
@@ -58,16 +55,36 @@ class App extends Component {
     })
   };
 
+  clickBtnToSearch = (row) => {
+    fetch(`https://api.weatherbit.io/v2.0/forecast/daily?city=${row}&key=dca0035042bc4348ba1804106f131e75&hours`)
+      .then(response => {
+        if (response.ok) {
+          return response
+        }
+        throw Error(response.status);
+      })
+      .then(response => response.json())
+      .then(data => {
+        const temp = data.data;
+        this.setState({
+          value: '',
+          city: data.city_name,
+          temp,
+        })
+      })
+      .catch(error => console.log(error))
+  }
+
   render() {
-    const { value, city } = this.state;
-    const minTEMP = this.state.temp.map(el => parseInt(el.low_temp));
-    const maxTEMP = this.state.temp.map(el => parseInt(el.max_temp));
-    const icon = this.state.temp.map(el => el.weather.code);
-    const description = this.state.temp.map(el => el.weather.description);
+    const { value, city, temp } = this.state;
+    const minTEMP = temp.map(el => parseInt(el.low_temp));
+    const maxTEMP = temp.map(el => parseInt(el.max_temp));
+    const icon = temp.map(el => el.weather.code);
+    const description = temp.map(el => el.weather.description);
 
     let content = (
       <>
-        <h5 className='cityName'>Weather for {city}</h5>
+        <h5 className='cityName'>{city}</h5>
         <div className="weatherCont">
           <WeatherBody day={this.dateBul(0)} icon={icon[0]} minTemp={minTEMP[0]} maxTemp={maxTEMP[0]} description={description} />
           <WeatherBody day={this.dateBul(1)} icon={icon[1]} minTemp={minTEMP[1]} maxTemp={maxTEMP[1]} description={description} />
@@ -80,8 +97,13 @@ class App extends Component {
 
     return (
       <div className="app">
-        <InputToSearch value={value} change={this.handleChange} keyPress={this.searchWeather} />
-        {city.length && content}
+        <InputToSearch
+          value={value}
+          keyPress={this.searchWeather}
+          change={this.handleChange}
+          click={this.clickBtnToSearch}
+        />
+        {city.length === 0 ? null : content}
       </div>
     )
   };

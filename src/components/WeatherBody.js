@@ -1,30 +1,24 @@
 import React, { Component } from 'react';
-import '../styles/WeatherBody.css';
+
 import Icon from './Icon';
 
-
+import '../styles/WeatherBody.css';
 
 class WeatherBody extends Component {
     state = {
         active: false,
     }
 
-
     render() {
+        const { icon, minTemp, maxTemp, day } = this.props
         return (
             <div className="WeatherBody card">
-                <Icon icon={this.props.icon} />
-                <div className="day"
-                    style={{
-                        color: '#b8b8b8',
-                        margin: '15px 0',
-                    }}
-                >{this.props.day}</div>
+                <Icon icon={icon} />
+                <div className="day">{day}</div>
                 <div className="temp">
-                    <span className="minTemp">{this.props.minTemp}&#176;</span>
-                    <span className="maxTemp">{this.props.maxTemp}&#176;</span>
+                    <span className="maxTemp">{maxTemp}&#176;</span>
+                    <span className="minTemp">{minTemp}&#176;</span>
                 </div>
-
             </div >
         );
     }

@@ -10,9 +10,9 @@ import Sun from '../images/SunClear.png'
 import '../styles/Icon.css'
 
 
-const Icon = (props) => {
+const Icon = ({ icon, description }) => {
 
-    switch (props.icon) {
+    switch (icon) {
         case 800:
             return <img className="icon" src={Sun} alt="Cloudy" />
 
@@ -62,7 +62,7 @@ const Icon = (props) => {
             return (
                 <>
                     <img className="icon" src={Thermometer} alt="Thermometer" />
-                    <h5>{props.description}</h5>
+                    <h5>{description}</h5>
                 </>
             )
     }
